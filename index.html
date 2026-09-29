@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pedro H. Miranda | Desenvolvedor Python</title>
+<meta name="description" content="Portfólio de Pedro H. Miranda: projetos em Python, automação e manipulação de arquivos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a0f; --surface:#12121a; --line:#23232f; --text:#e9e9ef; --muted:#9a9aab;
+  --accent:#5eead4; --accent-dim:rgba(94,234,212,.14);
+  --head:'Outfit',system-ui,sans-serif; --body:'Source Sans 3',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{background:var(--bg);color:var(--text);font:400 1.0625rem/1.65 var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1080px,100% - 2.5rem);margin-inline:auto}
+section{padding:6rem 0}
+h1,h2,h3{font-family:var(--head);line-height:1.15;letter-spacing:-.02em}
+h2{font-size:clamp(1.75rem,4vw,2.4rem);margin-bottom:2.5rem}
+
+/* nav */
+nav{position:fixed;inset:0 0 auto 0;z-index:10;transition:background .3s,border-color .3s,backdrop-filter .3s;border-bottom:1px solid transparent}
+nav.scrolled{background:rgba(10,10,15,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-color:var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font:600 1.15rem var(--head)}
+.logo span{color:var(--accent)}
+nav ul{display:flex;gap:1.75rem;list-style:none;font-size:.95rem;color:var(--muted)}
+nav ul a{transition:color .2s}
+nav ul a:hover{color:var(--text)}
+
+/* hero */
+.hero{min-height:100svh;display:flex;align-items:center;padding:7rem 0 4rem;position:relative;overflow:hidden}
+.hero .wrap{display:grid;gap:3rem;grid-template-columns:1.2fr .8fr;align-items:center}
+.hero h1{font-size:clamp(2.6rem,7vw,4.6rem);font-weight:600}
+.role{font:500 1.25rem var(--head);color:var(--accent);margin:1rem 0 1.25rem}
+.lead{color:var(--muted);max-width:52ch;margin-bottom:2rem}
+.btns{display:flex;flex-wrap:wrap;gap:.75rem}
+.btn{padding:.8rem 1.4rem;border-radius:8px;border:1px solid var(--line);font:500 .98rem var(--head);transition:transform .2s,border-color .2s,background .2s,color .2s}
+.btn:hover{transform:translateY(-2px);border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:#04211d;border-color:var(--accent)}
+.btn.primary:hover{background:#7ff0de}
+.orbit{width:100%;max-width:340px;justify-self:center;aspect-ratio:1}
+.orbit circle.track{fill:none;stroke:var(--line);stroke-width:1}
+.orbit .dot{fill:var(--accent)}
+.orbit .cur{fill:none;stroke:var(--text);stroke-width:1.5}
+
+/* sobre */
+.about{display:grid;gap:3rem;grid-template-columns:1.1fr .9fr}
+.about p{color:var(--muted);margin-bottom:1rem;max-width:60ch}
+.tags{display:flex;flex-wrap:wrap;gap:.5rem;align-content:flex-start}
+.tag{padding:.35rem .85rem;border:1px solid var(--line);border-radius:999px;font-size:.92rem;color:var(--text);background:var(--surface);transition:border-color .2s,color .2s}
+.tag:hover{border-color:var(--accent);color:var(--accent)}
+.skills-title{font:500 1rem var(--head);color:var(--muted);margin-bottom:1rem}
+
+/* projetos */
+.grid{display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:transform .3s,border-color .3s,box-shadow .3s}
+.card:hover{transform:translateY(-6px);border-color:var(--accent);box-shadow:0 12px 40px -12px rgba(94,234,212,.28)}
+.art{height:150px;border-bottom:1px solid var(--line);display:grid;place-items:center;background:#0e0e15;overflow:hidden}
+.body{padding:1.5rem;display:flex;flex-direction:column;gap:.8rem;flex:1}
+.body h3{font-size:1.3rem;display:flex;align-items:center;gap:.6rem}
+.lang{width:10px;height:10px;border-radius:50%;background:#3776ab;box-shadow:0 0 0 3px rgba(55,118,171,.25)}
+.body p{color:var(--muted);font-size:1rem;flex:1}
+.stack{display:flex;flex-wrap:wrap;gap:.4rem}
+.stack span{font-size:.82rem;padding:.2rem .6rem;border-radius:6px;background:var(--accent-dim);color:var(--accent)}
+.repo{font:500 .95rem var(--head);color:var(--text);display:inline-flex;gap:.4rem;align-items:center;margin-top:.4rem}
+.repo svg{transition:transform .2s}
+.card:hover .repo svg{transform:translateX(4px)}
+/* arte por projeto */
+.art-lines{font:400 .85rem/1.7 ui-monospace,Menlo,monospace;color:var(--muted);text-align:left}
+.art-lines b{color:var(--accent);font-weight:400}
+.art-word{font:600 1.9rem var(--head);letter-spacing:.35em;color:var(--text)}
+.art-word i{font-style:normal;color:var(--accent)}
+.art-word u{text-decoration:none;color:var(--line)}
+
+/* experiencia */
+.timeline{border-left:1px solid var(--line);margin-left:.5rem;display:grid;gap:2rem}
+.job{position:relative;padding-left:2rem}
+.job::before{content:"";position:absolute;left:-6px;top:.55rem;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
+.job h3{font-size:1.2rem}
+.job .meta{color:var(--accent);font-size:.95rem;margin:.15rem 0 .4rem}
+.job p{color:var(--muted);max-width:62ch}
+
+/* contato */
+.contact{text-align:center;border-top:1px solid var(--line)}
+.contact h2{margin-bottom:1rem}
+.contact p{color:var(--muted);max-width:50ch;margin:0 auto 2rem}
+.contact .btns{justify-content:center}
+footer{padding:2rem 0;text-align:center;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  .orbit *{animation:none!important}
+}
+@media (max-width:760px){
+  section{padding:4.5rem 0}
+  .hero .wrap,.about{grid-template-columns:1fr}
+  .orbit{max-width:220px;order:-1;justify-self:start}
+  nav ul{gap:1rem;font-size:.88rem}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav" aria-label="Principal">
+  <div class="wrap">
+    <a href="#topo" class="logo">Pedro<span>.</span></a>
+    <ul>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#projetos">Projetos</a></li>
+      <li><a href="#experiencia">Experiência</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="topo">
+  <header class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Pedro H. Miranda</h1>
+        <p class="role">Desenvolvedor Python</p>
+        <!-- EDITE: adapte este resumo com o texto do seu "Sobre" no LinkedIn -->
+        <p class="lead">Escrevo scripts em Python para automatizar tarefas, ler e processar arquivos e resolver problemas de lógica. Estou construindo uma base sólida em programação, com foco em dados e backend.</p>
+        <div class="btns">
+          <a class="btn primary" href="#projetos">Ver projetos</a>
+          <a class="btn" href="https://www.linkedin.com/in/pedrohmiranda/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn" href="https://github.com/Pedrobina" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+      <svg class="orbit" viewBox="0 0 200 200" role="img" aria-label="Ponto percorrendo uma trajetória circular, referência ao script de automação do mouse">
+        <circle class="track" cx="100" cy="100" r="70"/>
+        <circle class="track" cx="100" cy="100" r="40" stroke-dasharray="3 5"/>
+        <g>
+          <animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="14s" repeatCount="indefinite"/>
+          <circle class="dot" cx="170" cy="100" r="5"/>
+          <circle class="cur" cx="170" cy="100" r="12"/>
+        </g>
+      </svg>
+    </div>
+  </header>
+
+  <section id="sobre">
+    <div class="wrap about reveal">
+      <div>
+        <h2>Sobre mim</h2>
+        <!-- EDITE: substitua pelo texto real do seu LinkedIn -->
+        <p>Programo em Python e gosto de transformar tarefas repetitivas em código simples e confiável. Meus projetos cobrem automação de interface, leitura e análise de arquivos de texto e lógica de jogos no terminal.</p>
+        <p>Busco oportunidades para aplicar esses fundamentos em problemas reais de dados e desenvolvimento backend, aprendendo com times mais experientes.</p>
+      </div>
+      <div>
+        <p class="skills-title">Tecnologias e conceitos</p>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">PyAutoGUI</span><span class="tag">Manipulação de arquivos</span>
+          <span class="tag">Strings e parsing</span><span class="tag">Laços e condicionais</span><span class="tag">Módulos math e random</span>
+          <span class="tag">Git</span><span class="tag">GitHub</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projetos">
+    <div class="wrap">
+      <h2 class="reveal">Projetos</h2>
+      <div class="grid">
+
+        <article class="card reveal">
+          <div class="art" aria-hidden="true">
+            <svg width="110" height="110" viewBox="0 0 110 110"><circle cx="55" cy="55" r="38" fill="none" stroke="#23232f"/><g><animateTransform attributeName="transform" type="rotate" from="0 55 55" to="360 55 55" dur="6s" repeatCount="indefinite"/><circle cx="93" cy="55" r="5" fill="#5eead4"/></g></svg>
+          </div>
+          <div class="body">
+            <h3><span class="lang" title="Python"></span>Python Mouse Automation</h3>
+            <p>Script que move o mouse em um caminho circular, calculado com seno e cosseno, e clica em cada ponto a intervalos definidos (30 segundos por padrão). Inclui o fail-safe do PyAutoGUI para interromper movendo o cursor até um canto da tela.</p>
+            <div class="stack"><span>Python</span><span>PyAutoGUI</span><span>math</span><span>time</span></div>
+            <a class="repo" href="https://github.com/Pedrobina/Python-Mouse-Automation-Script" target="_blank" rel="noopener">Ver no GitHub
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <div class="art" aria-hidden="true">
+<pre class="art-lines"><b>&gt;</b> mbox-short.txt
+FROM: STEPHEN.MARQUARD
+X-DSPAM: <b>0.8475</b>
+media = <b>0.7507</b></pre>
+          </div>
+          <div class="body">
+            <h3><span class="lang" title="Python"></span>reading_files</h3>
+            <p>Três exercícios de leitura de arquivos: imprimir um arquivo em maiúsculas, extrair valores numéricos das linhas X-DSPAM-Confidence para calcular a média e tratar arquivos ausentes, com uma mensagem especial para um nome de arquivo específico.</p>
+            <div class="stack"><span>Python</span><span>File I/O</span><span>Parsing de texto</span><span>Tratamento de erros</span></div>
+            <a class="repo" href="https://github.com/Pedrobina/reading_files" target="_blank" rel="noopener">Ver no GitHub
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <div class="art" aria-hidden="true">
+            <div class="art-word">M<i>A</i><u>_</u>G<u>_</u></div>
+          </div>
+          <div class="body">
+            <h3><span class="lang" title="Python"></span>Hang Man</h3>
+            <p>Jogo da forca no terminal. O programa sorteia uma fruta, mostra a palavra oculta e revela as letras acertadas a cada tentativa, com um número limitado de chances.</p>
+            <div class="stack"><span>Python</span><span>random</span><span>Strings</span><span>Lógica de jogo</span></div>
+            <a class="repo" href="https://github.com/Pedrobina/hang_man/blob/master/hang_man.py" target="_blank" rel="noopener">Ver no GitHub
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="experiencia">
+    <div class="wrap">
+      <h2 class="reveal">Experiência profissional</h2>
+      <!-- EDITE: o LinkedIn bloqueou a leitura automática. Copie aqui seus cargos reais. -->
+      <div class="timeline">
+        <div class="job reveal">
+          <h3>Seu cargo mais recente</h3>
+          <p class="meta">Empresa · Início – Atual</p>
+          <p>Descreva em uma ou duas frases o que você fez e o resultado.</p>
+        </div>
+        <div class="job reveal">
+          <h3>Cargo anterior</h3>
+          <p class="meta">Empresa · Início – Fim</p>
+          <p>Descreva suas principais responsabilidades.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato" class="contact">
+    <div class="wrap reveal">
+      <h2>Vamos conversar</h2>
+      <p>Estou aberto a oportunidades e a conversas sobre Python, dados e desenvolvimento backend.</p>
+      <div class="btns">
+        <a class="btn primary" href="https://www.linkedin.com/in/pedrohmiranda/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="https://github.com/Pedrobina" target="_blank" rel="noopener">GitHub</a>
+        <!-- EDITE: <a class="btn" href="mailto:seu@email.com">E-mail</a> -->
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>Pedro H. Miranda</footer>
+
+<script>
+const nav=document.getElementById('nav');
+const onScroll=()=>nav.classList.toggle('scrolled',scrollY>20);
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
